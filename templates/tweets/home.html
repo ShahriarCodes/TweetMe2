@@ -15,7 +15,6 @@ Home
     loading....
 </div>
 
-
 <script>
     // for document
     const tweetsElement = document.getElementById("tweets")
@@ -36,11 +35,27 @@ Home
     const url = '/tweets'
     const responseType = 'json'
 
+    function handleDidLike(tweet_id, currentCount) {
+        console.log(tweet_id, currentCount)
+
+    }
+
+    function likeBtn(tweet) {
+        var tweet_id = tweet.id;
+        var currentLikes = tweet.likes
+
+        return "<button class = 'btn btn-outline-primary' " +
+            "onClick=handleDidLike(" + tweet_id + "," + currentLikes + ")>" +
+            currentLikes + " Likes </button>"
+    }
+
     function formatTweetElement(tweet) {
         var formattedTweet =
             "<div class='mb-4'><h3>" +
             tweet.id + "</h3>" +
-            "<p>" + tweet.content + "</p></div>";
+            "<p>" + tweet.content + "</p>" +
+            likeBtn(tweet) +
+            "</div>";
         return formattedTweet;
     }
 
