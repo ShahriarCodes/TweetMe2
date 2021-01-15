@@ -1,0 +1,33 @@
+{% extends 'tweets/base.html' %}
+
+{% block head_title %}
+Home
+{% endblock head_title %}
+
+
+{% block content %}
+
+<h1>Welcome to TweetMe2</h1>
+
+<a href={% url 'tweets:tweet-list-view' %}>View all tweets</a>
+
+<script>
+    const xhr = new XMLHttpRequest();
+    const method = 'GET'
+    const url = '/tweets'
+    const responseType = 'json'
+
+    xhr.responseType = responseType;
+    xhr.open(method, url)
+    xhr.onload = function () {
+        console.log(xhr.response)
+        const serverResponse = xhr.response
+
+        // .response is from json (tweets_list)
+        var listedItems = serverResponse.response
+        console.log(listedItems)
+    };
+    xhr.send()
+</script>
+
+{% endblock content %}

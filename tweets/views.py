@@ -9,12 +9,35 @@ from .models import Tweet
 def home_view(request, *args, **kwargs):
     print(args, kwargs)
 
-    return HttpResponse("<h1> hello </h1>")
+    context = {}
+    return render(request, 'tweets/home.html',
+                  context=context, status=200)
+
+
+def tweet_list_view(request, *args, **kwargs):
+    """
+    REST API View of All Tweets
+    Consume by Javascript or Swift
+    return json data
+    """
+    queryset = Tweet.objects.all()
+
+    # list comprehension in queryset
+    tweets_list = [{
+        'id': x.id,
+        'content': x.content,
+    } for x in queryset]
+
+    data = {
+        'isUser': False,
+        'response': tweets_list
+    }
+    return JsonResponse(data)
 
 
 def tweet_detail_view(request, tweet_id, *args, **kwargs):
     """
-    Rest Api view
+    REST API View
     Consume by Javascript or Swift
     return json data
     """
