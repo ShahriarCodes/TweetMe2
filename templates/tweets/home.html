@@ -36,6 +36,14 @@ Home
     const url = '/tweets'
     const responseType = 'json'
 
+    function formatTweetElement(tweet) {
+        var formattedTweet =
+            "<div class='mb-4'><h3>" +
+            tweet.id + "</h3>" +
+            "<p>" + tweet.content + "</p></div>";
+        return formattedTweet;
+    }
+
     xhr.responseType = responseType;
     xhr.open(method, url)
     xhr.onload = function () {
@@ -48,11 +56,8 @@ Home
 
         var finalTweetStr = ''
         for (let i = 0; i < listedItems.length; i++) {
-            var currentItem =
-                "<div class='mb-4'><h3>" +
-                listedItems[i].id + "</h3>" +
-                "<p>" + listedItems[i].content + "</p></div>";
-
+            var tweetObj = listedItems[i]
+            var currentItem = formatTweetElement(tweetObj)
             finalTweetStr += currentItem;
         }
         tweetsElement.innerHTML = finalTweetStr;
