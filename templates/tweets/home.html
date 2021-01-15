@@ -9,9 +9,28 @@ Home
 
 <h1>Welcome to TweetMe2</h1>
 
-<a href={% url 'tweets:tweet-list-view' %}>View all tweets</a>
+<a href={% url 'tweets:tweet-list-view' %}>View all tweets JsonRespnse</a>
+
+<div id="tweets">
+    loading....
+</div>
+
 
 <script>
+    // for document
+    const tweetsElement = document.getElementById("tweets")
+
+    // tweetsElement.innerHTML = 'Loading.....'
+
+    // // appending elements into <div id="tweets">
+    // // test code
+    // var el1 = "<h1> hello 1 </h1>"
+    // var el2 = "<h1> hello2 </h1>"
+    // var el3 = "<h1> hello 3 </h1>"
+    // tweetsElement.innerHTML = el1 + el2 + el3;
+
+
+    //for json response
     const xhr = new XMLHttpRequest();
     const method = 'GET'
     const url = '/tweets'
@@ -26,6 +45,17 @@ Home
         // .response is from json (tweets_list)
         var listedItems = serverResponse.response
         console.log(listedItems)
+
+        var finalTweetStr = ''
+        for (let i = 0; i < listedItems.length; i++) {
+            var currentItem =
+                "<div class='mb-4'><h3>" +
+                listedItems[i].id + "</h3>" +
+                "<p>" + listedItems[i].content + "</p></div>";
+
+            finalTweetStr += currentItem;
+        }
+        tweetsElement.innerHTML = finalTweetStr;
     };
     xhr.send()
 </script>
