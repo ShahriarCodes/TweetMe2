@@ -13,11 +13,24 @@ Home
     </div>
 </div>
 
+
 <div class="row text-center">
     <div class="col">
         <a href={% url 'tweets:tweet-list-view' %}>
             View all tweets JsonRespnse
         </a>
+    </div>
+</div>
+
+
+<div class="row mb-3">
+    <div class="col-md-4 mx-auto col-10">
+        <form action={% url 'tweets:tweet-create-view' %} class="form" method='POST'>
+            {% csrf_token %}
+            <input type="hidden" value='/' name="next" />
+            <textarea name="content" placeholder="Your tweet...." cols="30" rows="10" class="form-control"></textarea>
+            <button type="submit" class="btn btn-primary">Tweet</button>
+        </form>
     </div>
 </div>
 
