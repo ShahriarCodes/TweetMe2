@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, JsonResponse
 
 from .models import Tweet
+from .forms import TweetForm
 
 # Create your views here.
 
@@ -13,6 +14,18 @@ def home_view(request, *args, **kwargs):
     context = {}
     return render(request, 'tweets/home.html',
                   context=context, status=200)
+
+
+def tweet_create_view(request, *args, **kwargs):
+    form = TweetForm(request.POST or None)
+    if form.is_valid():
+        obj = form.save(commit=False)
+        # do other form related logic
+        obj.save()
+        form = TweetForm()
+
+    context = {'form': form}
+    return render(request, 'components/form.html', context=context)
 
 
 def tweet_list_view(request, *args, **kwargs):
