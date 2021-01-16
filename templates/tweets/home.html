@@ -1,4 +1,4 @@
-{% extends 'tweets/base.html' %}
+{% extends 'base.html' %}
 
 {% block head_title %}
 Home
@@ -7,11 +7,22 @@ Home
 
 {% block content %}
 
-<h1>Welcome to TweetMe2</h1>
+<div class="row text-center">
+    <div class="col">
+        <h1>Welcome to TweetMe2</h1>
+    </div>
+</div>
 
-<a href={% url 'tweets:tweet-list-view' %}>View all tweets JsonRespnse</a>
+<div class="row text-center">
+    <div class="col">
+        <a href={% url 'tweets:tweet-list-view' %}>
+            View all tweets JsonRespnse
+        </a>
+    </div>
+</div>
 
-<div id="tweets">
+
+<div class="row" id="tweets">
     loading....
 </div>
 
@@ -51,7 +62,7 @@ Home
 
     function formatTweetElement(tweet) {
         var formattedTweet =
-            "<div class='mb-4'><h3>" +
+            "<div class='col-12 col-md-10 mx-auto mb-4 border-bottom border-info py-3'><h3>" +
             tweet.id + "</h3>" +
             "<p>" + tweet.content + "</p>" +
             likeBtn(tweet) +
