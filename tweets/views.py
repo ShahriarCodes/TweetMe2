@@ -48,7 +48,7 @@ def tweet_list_view(request, *args, **kwargs):
     Consume by Javascript or Swift
     return json data
     """
-    queryset = Tweet.objects.all()
+    queryset = Tweet.objects.all().order_by('-id')
 
     # list comprehension in queryset
     tweets_list = [{

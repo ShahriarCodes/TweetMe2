@@ -42,10 +42,36 @@ Home
 </div>
 
 <script>
-    // converting form with javascript
+    // converting form with javascript sending data through js
     function handleTweetCreateFormDidSubmit() {
         event.preventDefault(); //prevents submit button to submit
-        console.log(event)
+        const myForm = event.target;
+        const myFormData = new FormData(myForm)
+        const url = myForm.getAttribute("action")
+        const method = myForm.getAttribute("method")
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, url)
+        xhr.onload = function () {
+            const serverResponse = xhr.response
+            console.log(serverResponse)
+
+            // reload the tweets after the form is submitted
+            // this is not manual reloading. 
+            // the redirect url shows error is url is incorrect
+            // but the form get submitted anyway
+            const tweetsEl = document.getElementById("tweets")
+            loadTweets(tweetsEl);
+
+
+        }
+        xhr.send(myFormData)
+
+        // console.log(url, method)
+
+        // for (var myItem of myFormData.entries()) {
+        //     console.log(myItem)
+        // }
+        // console.log(event)
     }
 
     const tweetsCreateFormEl = document.getElementById("tweet-create-form")
